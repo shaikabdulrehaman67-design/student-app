@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Notification History</title>
+
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+
+    margin: 0;
+
+    background: #f6f3f7;
+
+    font-family:
+        Segoe UI,
+        Arial,
+        sans-serif;
+
+    color: #302536;
+
+}
+
+
+/* ================= HEADER ================= */
+
+.premium-header {
+
+    min-height: 104px;
+
+    background: #2d1738;
+
+    color: white;
+
+    border-bottom: 2px solid #c49a45;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 48px;
+
+    gap: 30px;
+
+}
+
+
+.brand-section {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+}
+
+
+.brand-logo {
+
+    width: 60px;
+
+    height: 60px;
+
+    border: 1px solid #c49a45;
+
+    border-radius: 15px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #d6aa50;
+
+}
+
+
+.brand-logo svg {
+
+    width: 42px;
+
+    height: 42px;
+
+}
+
+
+.brand-text h1 {
+
+    margin: 0;
+
+    font-size: 27px;
+
+}
+
+
+.brand-text span {
+
+    display: block;
+
+    margin-top: 5px;
+
+    color: #d8c5db;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1.5px;
+
+    font-size: 12px;
+
+}
+
+
+.premium-nav {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+}
+
+
+.premium-nav a {
+
+    color: white;
+
+    text-decoration: none;
+
+    padding: 13px 17px;
+
+    border-radius: 11px;
+
+}
+
+
+.premium-nav a:hover,
+
+.premium-nav a.active {
+
+    background: #553064;
+
+    border-bottom: 2px solid #c49a45;
+
+}
+
+
+/* ================= PAGE ================= */
+
+.page {
+
+    max-width: 1400px;
+
+    margin: 38px auto;
+
+    padding: 0 25px;
+
+}
+
+
+.kicker {
+
+    color: #a77d2f;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1.7px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+}
+
+
+h2 {
+
+    font-size: 31px;
+
+    margin: 7px 0;
+
+}
+
+
+.subtitle {
+
+    color: #716774;
+
+    margin-bottom: 25px;
+
+}
+
+
+/* ================= CARD ================= */
+
+.card {
+
+    background: white;
+
+    border: 1px solid #e2dce5;
+
+    border-radius: 18px;
+
+    padding: 20px;
+
+    box-shadow:
+        0 10px 28px
+        rgba(45,23,56,.07);
+
+}
+
+
+.table-wrap {
+
+    overflow-x: auto;
+
+}
+
+
+.table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 850px;
+
+}
+
+
+.table th {
+
+    background: #f0eaf2;
+
+    color: #5d4864;
+
+    padding: 13px;
+
+    text-align: left;
+
+    font-size: 12px;
+
+    text-transform: uppercase;
+
+    letter-spacing: .6px;
+
+}
+
+
+.table td {
+
+    padding: 13px;
+
+    border-bottom: 1px solid #eee7f0;
+
+    font-size: 13px;
+
+}
+
+
+.table tr:hover td {
+
+    background: #fcfaff;
+
+}
+
+
+/* ================= STATUS ================= */
+
+.sent {
+
+    color: #287043;
+
+    font-weight: 700;
+
+}
+
+
+.failed {
+
+    color: #a33;
+
+    font-weight: 700;
+
+}
+
+
+.demo {
+
+    color: #9b742a;
+
+    font-weight: 700;
+
+}
+
+
+/* ================= FOOTER ================= */
+
+.footer {
+
+    text-align: center;
+
+    margin-top: 25px;
+
+    color: #897e8c;
+
+    font-size: 12px;
+
+}
+
+
+/* ================= MOBILE ================= */
+
+@media(max-width:950px) {
+
+    .premium-header {
+
+        padding: 18px 20px;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+    }
+
+
+    .premium-nav {
+
+        width: 100%;
+
+        overflow-x: auto;
+
+    }
+
+}
+
+
+@media(max-width:600px) {
+
+    .brand-text h1 {
+
+        font-size: 22px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header class="premium-header">
+
+
+    <div class="brand-section">
+
+
+        <div class="brand-logo">
+
+            <svg
+                viewBox="0 0 64 64"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5">
+
+                <path d="M7 24L32 9L57 24"/>
+
+                <path d="M10 26H54"/>
+
+                <path d="M15 28V47"/>
+
+                <path d="M25 28V47"/>
+
+                <path d="M39 28V47"/>
+
+                <path d="M49 28V47"/>
+
+                <path d="M8 49H56"/>
+
+                <path d="M5 54H59"/>
+
+            </svg>
+
+        </div>
+
+
+        <div class="brand-text">
+
+            <h1>
+                NACH Return Tracker
+            </h1>
+
+            <span>
+                Banking Operations
+            </span>
+
+        </div>
+
+
+    </div>
+
+
+    <nav class="premium-nav">
+
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+
+        <a href="{{ url_for('add_return') }}">
+            Add Return
+        </a>
+
+
+        <a href="{{ url_for('records') }}">
+            Records
+        </a>
+
+
+        <a href="{{ url_for('reports') }}">
+            Reports
+        </a>
+
+
+        <a
+            class="active"
+            href="{{ url_for('customer_notices') }}">
+
+            Notices
+
+        </a>
+
+
+        <a href="{{ url_for('logout') }}">
+            Logout
+        </a>
+
+
+    </nav>
+
+
+</header>
+
+
+<!-- ================= CONTENT ================= -->
+
+<main class="page">
+
+
+    <span class="kicker">
+        Customer Communication
+    </span>
+
+
+    <h2>
+        Notification History
+    </h2>
+
+
+    <p class="subtitle">
+
+        View email and SMS notification records
+        generated from customer notices.
+
+    </p>
+
+
+    <div class="card">
+
+
+        <div class="table-wrap">
+
+
+            <table class="table">
+
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Customer
+                        </th>
+
+                        <th>
+                            Method
+                        </th>
+
+                        <th>
+                            Recipient
+                        </th>
+
+                        <th>
+                            Date & Time
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Message
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                {% for h in history %}
+
+
+                    <tr>
+
+
+                        <td>
+                            {{ h['customer_name'] }}
+                        </td>
+
+
+                        <td>
+                            {{ h['method'] }}
+                        </td>
+
+
+                        <td>
+                            {{ h['recipient'] }}
+                        </td>
+
+
+                        <td>
+                            {{ h['sent_at'] }}
+                        </td>
+
+
+                        <td>
+
+
+                            {% if h['status'] == 'Sent' %}
+
+                                <span class="sent">
+                                    Sent
+                                </span>
+
+
+                            {% elif h['status'] == 'Demo Sent' %}
+
+                                <span class="demo">
+                                    Demo Sent
+                                </span>
+
+
+                            {% else %}
+
+                                <span class="failed">
+                                    {{ h['status'] }}
+                                </span>
+
+                            {% endif %}
+
+
+                        </td>
+
+
+                        <td>
+                            {{ h['message'] }}
+                        </td>
+
+
+                    </tr>
+
+
+                {% else %}
+
+
+                    <tr>
+
+                        <td
+                            colspan="6"
+                            style="
+                                text-align:center;
+                                padding:45px;
+                                color:#7b7180;
+                            ">
+
+                            No notifications recorded.
+
+                        </td>
+
+                    </tr>
+
+
+                {% endfor %}
+
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
+    </div>
+
+
+    <div class="footer">
+
+        NACH Return Tracker
+        •
+        Banking Operations Management System
+
+    </div>
+
+
+</main>
+
+
+</body>
+
+</html>

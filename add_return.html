@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Add NACH Return</title>
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}">
+
+<style>
+
+.add-return-page {
+    width: min(1000px, calc(100% - 36px));
+    margin: 28px auto 45px;
+}
+
+.page-heading {
+    background: linear-gradient(
+        135deg,
+        #fffaf0,
+        #f8f1fb
+    );
+
+    border: 1px solid #dfd1e4;
+    border-radius: 15px;
+
+    padding: 20px 23px;
+
+    margin-bottom: 17px;
+
+    box-shadow:
+        0 8px 22px
+        rgba(50,30,60,.07);
+}
+
+.page-heading h1 {
+    margin: 0;
+    color: #4d2860;
+    font-size: 24px;
+}
+
+.page-heading p {
+    margin: 6px 0 0;
+    color: #837687;
+    font-size: 11px;
+}
+
+
+/* =====================================================
+   FLASH / ERROR
+   ===================================================== */
+
+.message-box {
+    padding: 12px 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.error-box {
+    background: #fff2f2;
+    border: 1px solid #e4bcbc;
+    color: #8d3434;
+}
+
+
+/* =====================================================
+   CSV CARD
+   ===================================================== */
+
+.upload-card {
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #faf6fc
+        );
+
+    border: 1px solid #ddd0e2;
+    border-radius: 15px;
+
+    padding: 19px;
+
+    margin-bottom: 17px;
+
+    box-shadow:
+        0 8px 22px
+        rgba(55,35,65,.07);
+}
+
+.upload-title {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    margin-bottom: 14px;
+}
+
+.upload-icon {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #5b2d70,
+            #825394
+        );
+
+    color: #e4c76e;
+
+    font-size: 20px;
+
+    box-shadow:
+        0 5px 13px
+        rgba(75,40,90,.16);
+}
+
+.upload-title h2 {
+    margin: 0;
+    color: #4b2860;
+    font-size: 16px;
+}
+
+.upload-title p {
+    margin: 3px 0 0;
+    color: #8c7e8e;
+    font-size: 10px;
+}
+
+.upload-area {
+    border: 1.5px dashed #c9afcf;
+    border-radius: 12px;
+
+    padding: 17px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fdfaff,
+            #fffdf8
+        );
+}
+
+.file-row {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.file-input {
+    flex: 1;
+
+    padding: 10px;
+
+    border: 1px solid #d8cbdc;
+    border-radius: 8px;
+
+    background: white;
+
+    font-size: 11px;
+}
+
+.upload-btn {
+    border: 0;
+    border-radius: 8px;
+
+    padding: 10px 17px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #5b2d70,
+            #78468b
+        );
+
+    color: white;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.csv-help {
+    margin-top: 9px;
+    color: #897c8d;
+    font-size: 9px;
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   MANUAL FORM
+   ===================================================== */
+
+.form-card {
+    background: white;
+
+    border: 1px solid #ded4e1;
+
+    border-radius: 15px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 8px 22px
+        rgba(55,35,65,.07);
+}
+
+.form-header {
+    padding: 16px 19px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #faf4fc,
+            #fffaf0
+        );
+
+    border-bottom: 1px solid #e6dce8;
+}
+
+.form-header h2 {
+    margin: 0;
+    color: #4b2860;
+    font-size: 16px;
+}
+
+.form-header p {
+    margin: 4px 0 0;
+    color: #887b8c;
+    font-size: 10px;
+}
+
+.nach-form {
+    padding: 19px;
+}
+
+.field {
+    margin-bottom: 13px;
+}
+
+.field label {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #5a3867;
+
+    font-size: 10px;
+
+    font-weight: 800;
+}
+
+.field input,
+.field select {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 10px 11px;
+
+    border: 1px solid #d9ccdd;
+
+    border-radius: 8px;
+
+    background: #fff;
+
+    font-size: 12px;
+
+    outline: none;
+}
+
+.field input:focus,
+.field select:focus {
+    border-color: #8b5b9c;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(107,63,128,.08);
+}
+
+
+/* =====================================================
+   CONTACT SECTION
+   ===================================================== */
+
+.contact-section {
+    margin-top: 17px;
+
+    padding: 15px;
+
+    border: 1px solid #ded2e3;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fcf8fd,
+            #fffdf8
+        );
+}
+
+.contact-title {
+    margin-bottom: 12px;
+}
+
+.contact-title strong {
+    color: #4c2860;
+    font-size: 13px;
+}
+
+.contact-title span {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #8b7d8e;
+
+    font-size: 9px;
+}
+
+.contact-grid {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 12px;
+}
+
+.date-grid {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 12px;
+}
+
+
+/* =====================================================
+   CHARGE BOX
+   ===================================================== */
+
+.charge-box {
+    margin-top: 18px;
+
+    padding: 16px;
+
+    border: 1px solid #dccb94;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fffaf0,
+            #fffdf9
+        );
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    box-shadow:
+        0 7px 17px
+        rgba(110,86,35,.07);
+}
+
+.charge-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.charge-icon {
+    width: 46px;
+    height: 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #e5c96d,
+            #b88b28
+        );
+
+    color: #4d3510;
+
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.charge-label {
+    color: #846a27;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: .5px;
+}
+
+.charge-amount {
+    margin-top: 2px;
+
+    color: #4e2a60;
+
+    font-size: 25px;
+
+    font-weight: 800;
+}
+
+.charge-message {
+    margin-top: 3px;
+
+    color: #8b7d67;
+
+    font-size: 9px;
+}
+
+.charge-breakdown {
+    border-left: 1px solid #e0d3ad;
+
+    padding-left: 18px;
+
+    color: #756747;
+
+    font-size: 9px;
+
+    line-height: 1.8;
+}
+
+
+/* =====================================================
+   BUTTONS
+   ===================================================== */
+
+.form-actions {
+    margin-top: 19px;
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 9px;
+}
+
+.clear-btn,
+.save-btn {
+    border-radius: 8px;
+
+    padding: 10px 17px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.clear-btn {
+    background: white;
+
+    border: 1px solid #d0c3d4;
+
+    color: #654c6d;
+}
+
+.save-btn {
+    border: 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #5b2d70,
+            #79478d
+        );
+
+    color: white;
+
+    box-shadow:
+        0 6px 14px
+        rgba(85,43,105,.16);
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media(max-width:700px) {
+
+    .file-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .contact-grid,
+    .date-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .charge-box {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .charge-breakdown {
+        width: 100%;
+
+        border-left: 0;
+
+        border-top: 1px solid #e0d3ad;
+
+        padding-left: 0;
+
+        padding-top: 10px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .clear-btn,
+    .save-btn {
+        width: 100%;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+     ===================================================== -->
+
+<header class="premium-header">
+
+    <div class="brand-section">
+
+        <div class="brand-logo">
+
+            <svg viewBox="0 0 64 64"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2.5">
+
+                <path d="M7 24L32 9L57 24"/>
+                <path d="M10 26H54"/>
+                <path d="M15 28V47"/>
+                <path d="M25 28V47"/>
+                <path d="M39 28V47"/>
+                <path d="M49 28V47"/>
+                <path d="M8 49H56"/>
+                <path d="M5 54H59"/>
+
+            </svg>
+
+        </div>
+
+        <div class="brand-text">
+
+            <h1>NACH Return Tracker</h1>
+
+            <span>Banking Operations</span>
+
+        </div>
+
+    </div>
+
+
+    <nav class="premium-nav">
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <a class="active"
+           href="{{ url_for('add_return') }}">
+            Add Return
+        </a>
+
+        <a href="{{ url_for('records') }}">
+            Records
+        </a>
+
+        <a href="{{ url_for('reports') }}">
+            Reports
+        </a>
+
+        <a href="{{ url_for('customer_notices') }}">
+            Notices
+        </a>
+
+        <a href="{{ url_for('logout') }}">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="add-return-page">
+
+
+    <div class="page-heading">
+
+        <h1>✦ Add NACH Return</h1>
+
+        <p>
+            Import a CSV return file or enter a returned
+            NACH transaction manually.
+        </p>
+
+    </div>
+
+
+    {% if error %}
+
+    <div class="message-box error-box">
+
+        ⚠ {{ error }}
+
+    </div>
+
+    {% endif %}
+
+
+    {% with messages = get_flashed_messages() %}
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+            <div class="message-box"
+                 style="
+                 background:#f4fbf5;
+                 border:1px solid #bfd9c4;
+                 color:#376143;
+                 ">
+
+                ✓ {{ message }}
+
+            </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <!-- =================================================
+         CSV UPLOAD
+         ================================================= -->
+
+    <section class="upload-card">
+
+        <div class="upload-title">
+
+            <div class="upload-icon">
+                ⇧
+            </div>
+
+            <div>
+
+                <h2>
+                    Import NACH Return File
+                </h2>
+
+                <p>
+                    Upload your daily NACH return CSV.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="upload-area">
+
+            <form
+                action="{{ url_for('import_csv') }}"
+                method="POST"
+                enctype="multipart/form-data"
+            >
+
+                <div class="file-row">
+
+                    <input
+                        class="file-input"
+                        type="file"
+                        name="csv_file"
+                        accept=".csv"
+                        required
+                    >
+
+                    <button
+                        type="submit"
+                        class="upload-btn"
+                    >
+                        ⇧ Upload CSV
+                    </button>
+
+                </div>
+
+
+                <div class="csv-help">
+
+                    CSV columns:
+
+                    Customer Name,
+                    Account Number,
+                    Mandate Number,
+                    Amount,
+                    Bank Name,
+                    Return Code,
+                    Return Date,
+                    Customer Email,
+                    Customer Mobile,
+                    Scheduled Debit Date,
+                    Next Salary Date
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         MANUAL ENTRY
+         ================================================= -->
+
+    <section class="form-card">
+
+        <div class="form-header">
+
+            <h2>
+                Manual Return Entry
+            </h2>
+
+            <p>
+                Enter the customer and NACH return information.
+            </p>
+
+        </div>
+
+
+        <form
+            class="nach-form"
+            method="POST"
+            action="{{ url_for('add_return') }}"
+        >
+
+
+            <!-- CUSTOMER -->
+
+            <div class="field">
+
+                <label>
+                    Customer Name
+                </label>
+
+                <input
+                    type="text"
+                    name="customer_name"
+                    value="{{ request.form.get('customer_name','') }}"
+                    required
+                >
+
+            </div>
+
+
+            <!-- ACCOUNT -->
+
+            <div class="field">
+
+                <label>
+                    Account Number
+                </label>
+
+                <input
+                    type="text"
+                    name="account_number"
+                    value="{{ request.form.get('account_number','') }}"
+                    required
+                >
+
+            </div>
+
+
+            <!-- MANDATE -->
+
+            <div class="field">
+
+                <label>
+                    Mandate Number
+                </label>
+
+                <input
+                    type="text"
+                    name="mandate_number"
+                    value="{{ request.form.get('mandate_number','') }}"
+                    style="text-transform:uppercase"
+                    required
+                >
+
+            </div>
+
+
+            <!-- AMOUNT -->
+
+            <div class="field">
+
+                <label>
+                    Return Amount
+                </label>
+
+                <input
+                    type="number"
+                    name="amount"
+                    step="0.01"
+                    value="{{ request.form.get('amount','') }}"
+                    required
+                >
+
+            </div>
+
+
+            <!-- BANK -->
+
+            <div class="field">
+
+                <label>
+                    Bank Name
+                </label>
+
+                <select
+                    name="bank_name"
+                    required
+                >
+
+                    <option value="">
+                        Select Bank
+                    </option>
+
+                    <option value="SBI">
+                        SBI
+                    </option>
+
+                    <option value="HDFC">
+                        HDFC
+                    </option>
+
+                    <option value="ICICI">
+                        ICICI
+                    </option>
+
+                    <option value="AXIS">
+                        AXIS
+                    </option>
+
+                    <option value="Union Bank">
+                        Union Bank
+                    </option>
+
+                    <option value="Canara Bank">
+                        Canara Bank
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- REASON -->
+
+            <div class="field">
+
+                <label>
+                    Return Reason
+                </label>
+
+                <select
+                    name="return_code"
+                    id="return_code"
+                    required
+                >
+
+                    <option value="">
+                        Select Return Reason
+                    </option>
+
+                    <option value="R01">
+                        Insufficient Funds
+                    </option>
+
+                    <option value="R02">
+                        Account Closed
+                    </option>
+
+                    <option value="R03">
+                        Signature Mismatch
+                    </option>
+
+                    <option value="R04">
+                        Mandate Expired
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- DATE -->
+
+            <div class="field">
+
+                <label>
+                    Return Date
+                </label>
+
+                <input
+                    type="date"
+                    name="return_date"
+                    value="{{ request.form.get('return_date','') }}"
+                    required
+                >
+
+            </div>
+
+
+            <!-- =================================================
+                 CUSTOMER CONTACT
+                 ================================================= -->
+
+            <div class="contact-section">
+
+                <div class="contact-title">
+
+                    <strong>
+                        ✉ Customer Contact Details
+                    </strong>
+
+                    <span>
+                        These details are used when sending customer notices.
+                    </span>
+
+                </div>
+
+
+                <div class="contact-grid">
+
+
+                    <div class="field">
+
+                        <label>
+                            Customer Email
+                        </label>
+
+                        <input
+                            type="email"
+                            name="customer_email"
+                            placeholder="customer@gmail.com"
+                            value="{{ request.form.get('customer_email','') }}"
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            Customer Mobile Number
+                        </label>
+
+                        <input
+                            type="tel"
+                            name="customer_mobile"
+                            placeholder="9876543210"
+                            value="{{ request.form.get('customer_mobile','') }}"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- =================================================
+                 CHARGE BOX
+                 ================================================= -->
+
+            <div class="charge-box">
+
+
+                <div class="charge-left">
+
+                    <div class="charge-icon">
+                        ₹
+                    </div>
+
+
+                    <div>
+
+                        <div class="charge-label">
+                            APPLICABLE BOUNCE CHARGE
+                        </div>
+
+
+                        <div
+                            class="charge-amount"
+                            id="chargeDisplay"
+                        >
+                            ₹0
+                        </div>
+
+
+                        <div
+                            class="charge-message"
+                            id="chargeMessage"
+                        >
+                            Select a return reason.
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="charge-breakdown">
+
+                    <strong>
+                        Charge Reference
+                    </strong>
+
+                    <br>
+
+                    Insufficient Funds — ₹350
+
+                    <br>
+
+                    Account Closed — ₹500
+
+                    <br>
+
+                    Signature Mismatch — ₹350
+
+                    <br>
+
+                    Mandate Expired — ₹400
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =================================================
+                 ACTIONS
+                 ================================================= -->
+
+            <div class="form-actions">
+
+                <button
+                    type="reset"
+                    class="clear-btn"
+                    onclick="resetCharge()"
+                >
+                    Clear
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="save-btn"
+                >
+                    ✓ Save Return
+                </button>
+
+            </div>
+
+
+        </form>
+
+    </section>
+
+
+</main>
+
+
+<script>
+
+const reasonSelect =
+    document.getElementById(
+        "return_code"
+    );
+
+const chargeDisplay =
+    document.getElementById(
+        "chargeDisplay"
+    );
+
+const chargeMessage =
+    document.getElementById(
+        "chargeMessage"
+    );
+
+
+const charges = {
+
+    "R01": {
+        amount: 350,
+        name: "Insufficient Funds"
+    },
+
+    "R02": {
+        amount: 500,
+        name: "Account Closed"
+    },
+
+    "R03": {
+        amount: 350,
+        name: "Signature Mismatch"
+    },
+
+    "R04": {
+        amount: 400,
+        name: "Mandate Expired"
+    }
+
+};
+
+
+function updateCharge() {
+
+    const selected =
+        reasonSelect.value;
+
+
+    if (charges[selected]) {
+
+        chargeDisplay.textContent =
+            "₹" +
+            charges[selected].amount;
+
+
+        chargeMessage.textContent =
+            charges[selected].name +
+            " — applicable charge";
+
+    }
+
+    else {
+
+        chargeDisplay.textContent =
+            "₹0";
+
+        chargeMessage.textContent =
+            "Select a return reason.";
+
+    }
+
+}
+
+
+function resetCharge() {
+
+    setTimeout(
+        updateCharge,
+        50
+    );
+
+}
+
+
+reasonSelect.addEventListener(
+    "change",
+    updateCharge
+);
+
+
+updateCharge();
+
+</script>
+
+
+</body>
+</html>

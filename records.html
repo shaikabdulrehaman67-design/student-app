@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>NACH Records</title>
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}">
+
+<style>
+
+.records-page {
+    max-width: 1250px;
+    margin: 0 auto;
+    padding: 28px 20px 50px;
+}
+
+.records-heading {
+    background: linear-gradient(
+        135deg,
+        #fffaf0,
+        #f8f1fb
+    );
+
+    border: 1px solid #dfd0e2;
+
+    border-radius: 15px;
+
+    padding: 20px 23px;
+
+    margin-bottom: 18px;
+}
+
+.records-heading h1 {
+    margin: 0;
+
+    color: #4f2860;
+
+    font-size: 25px;
+}
+
+.records-heading p {
+    margin: 6px 0 0;
+
+    color: #857887;
+
+    font-size: 12px;
+}
+
+
+/* FILTER */
+
+.filter-box {
+
+    background: white;
+
+    border: 1px solid #e0d7e4;
+
+    border-radius: 13px;
+
+    padding: 15px;
+
+    margin-bottom: 18px;
+
+    box-shadow:
+        0 7px 18px
+        rgba(64,37,73,.06);
+}
+
+.filter-form {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 180px auto;
+
+    gap: 10px;
+
+    align-items: end;
+}
+
+.filter-form label {
+
+    display: block;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    color: #654c6d;
+
+    margin-bottom: 5px;
+}
+
+.filter-form input,
+.filter-form select {
+
+    width: 100%;
+
+    padding: 10px;
+
+    border: 1px solid #d8cbdc;
+
+    border-radius: 8px;
+
+    outline: none;
+
+    background: #fff;
+}
+
+.filter-btn {
+
+    padding: 10px 17px;
+
+    border: 0;
+
+    border-radius: 8px;
+
+    background: #5d3470;
+
+    color: white;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+/* TABLE */
+
+.table-card {
+
+    background: white;
+
+    border: 1px solid #dfd5e2;
+
+    border-radius: 15px;
+
+    overflow-x: auto;
+
+    box-shadow:
+        0 8px 22px
+        rgba(64,37,73,.07);
+}
+
+.records-table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 1150px;
+}
+
+.records-table th {
+
+    background:
+        linear-gradient(
+            135deg,
+            #4f2860,
+            #6a3b7e
+        );
+
+    color: white;
+
+    padding: 12px 10px;
+
+    font-size: 10px;
+
+    text-align: left;
+
+    white-space: nowrap;
+}
+
+.records-table td {
+
+    padding: 12px 10px;
+
+    border-bottom:
+        1px solid #eee7f0;
+
+    font-size: 11px;
+
+    color: #554b58;
+
+    vertical-align: middle;
+}
+
+.records-table tr:hover {
+
+    background: #fcf9fd;
+}
+
+
+/* CUSTOMER */
+
+.customer-name {
+
+    color: #4f2860;
+
+    font-weight: 700;
+}
+
+.small-text {
+
+    display: block;
+
+    margin-top: 3px;
+
+    color: #95899a;
+
+    font-size: 9px;
+}
+
+
+/* CONTACT */
+
+.contact-cell {
+
+    min-width: 180px;
+}
+
+.contact-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    margin-bottom: 5px;
+
+    padding: 5px 7px;
+
+    border-radius: 6px;
+
+    background: #faf7fb;
+
+    border: 1px solid #eee5f1;
+
+    font-size: 10px;
+}
+
+.contact-item.email {
+
+    color: #5d3470;
+}
+
+.contact-item.whatsapp {
+
+    color: #3f6b4a;
+}
+
+.contact-empty {
+
+    color: #a69ba8;
+
+    font-size: 10px;
+}
+
+
+/* REASON */
+
+.reason-badge {
+
+    display: inline-block;
+
+    padding: 5px 8px;
+
+    border-radius: 7px;
+
+    background: #f5edf7;
+
+    color: #60366f;
+
+    font-weight: 700;
+
+    font-size: 9px;
+}
+
+
+/* CHARGE */
+
+.charge {
+
+    color: #9b6f18;
+
+    font-weight: 800;
+}
+
+
+/* ACTION */
+
+.delete-btn {
+
+    border: 1px solid #e1caca;
+
+    background: #fff7f7;
+
+    color: #a23e3e;
+
+    padding: 7px 10px;
+
+    border-radius: 7px;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+/* EMPTY */
+
+.empty-records {
+
+    padding: 45px;
+
+    text-align: center;
+
+    color: #918593;
+}
+
+
+@media(max-width:800px) {
+
+    .filter-form {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header class="premium-header">
+
+    <div class="brand-section">
+
+        <div class="brand-logo">
+
+            <svg viewBox="0 0 64 64"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2.5">
+
+                <path d="M7 24L32 9L57 24"/>
+                <path d="M10 26H54"/>
+                <path d="M15 28V47"/>
+                <path d="M25 28V47"/>
+                <path d="M39 28V47"/>
+                <path d="M49 28V47"/>
+                <path d="M8 49H56"/>
+                <path d="M5 54H59"/>
+
+            </svg>
+
+        </div>
+
+        <div class="brand-text">
+
+            <h1>NACH Return Tracker</h1>
+
+            <span>Banking Operations</span>
+
+        </div>
+
+    </div>
+
+
+    <nav class="premium-nav">
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('add_return') }}">
+            Add Return
+        </a>
+
+        <a class="active"
+           href="{{ url_for('records') }}">
+            Records
+        </a>
+
+        <a href="{{ url_for('reports') }}">
+            Reports
+        </a>
+
+        <a href="{{ url_for('customer_notices') }}">
+            Notices
+        </a>
+
+        <a href="{{ url_for('logout') }}">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="records-page">
+
+
+    <div class="records-heading">
+
+        <h1>
+            NACH Transaction Records
+        </h1>
+
+        <p>
+            View return transactions, customer contact details,
+            charges and communication status.
+        </p>
+
+    </div>
+
+
+    <!-- FILTER -->
+
+    <div class="filter-box">
+
+        <form
+            method="GET"
+            action="{{ url_for('records') }}"
+            class="filter-form">
+
+            <div>
+
+                <label>
+                    Search Customer / Account / Mandate / Contact
+                </label>
+
+                <input
+                    type="text"
+                    name="search"
+                    value="{{ search }}"
+                    placeholder="Search records..."
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Bank
+                </label>
+
+                <select name="bank">
+
+                    <option value="">
+                        All Banks
+                    </option>
+
+                    <option value="SBI"
+                        {% if bank == "SBI" %}selected{% endif %}>
+                        SBI
+                    </option>
+
+                    <option value="HDFC"
+                        {% if bank == "HDFC" %}selected{% endif %}>
+                        HDFC
+                    </option>
+
+                    <option value="ICICI"
+                        {% if bank == "ICICI" %}selected{% endif %}>
+                        ICICI
+                    </option>
+
+                    <option value="AXIS"
+                        {% if bank == "AXIS" %}selected{% endif %}>
+                        AXIS
+                    </option>
+
+                    <option value="Union Bank"
+                        {% if bank == "Union Bank" %}selected{% endif %}>
+                        Union Bank
+                    </option>
+
+                    <option value="Canara Bank"
+                        {% if bank == "Canara Bank" %}selected{% endif %}>
+                        Canara Bank
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="filter-btn">
+
+                Search
+
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- TABLE -->
+
+    <div class="table-card">
+
+        {% if records %}
+
+        <table class="records-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        ID
+                    </th>
+
+                    <th>
+                        CUSTOMER
+                    </th>
+
+                    <th>
+                        ACCOUNT
+                    </th>
+
+                    <th>
+                        MANDATE
+                    </th>
+
+                    <th>
+                        AMOUNT
+                    </th>
+
+                    <th>
+                        BANK
+                    </th>
+
+                    <th>
+                        RETURN REASON
+                    </th>
+
+                    <th>
+                        RETURN DATE
+                    </th>
+
+                    <th>
+                        CHARGE
+                    </th>
+
+                    <th>
+                        EMAIL
+                    </th>
+
+                    <th>
+                        WHATSAPP
+                    </th>
+
+                    <th>
+                        ACTION
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for record in records %}
+
+                <tr>
+
+                    <td>
+                        #{{ record["id"] }}
+                    </td>
+
+
+                    <td>
+
+                        <span class="customer-name">
+
+                            {{ record["customer_name"] }}
+
+                        </span>
+
+                    </td>
+
+
+                    <td>
+                        {{ record["account_number"] }}
+                    </td>
+
+
+                    <td>
+
+                        {{ record["mandate_number"] }}
+
+                    </td>
+
+
+                    <td>
+
+                        ₹{{ "%.2f"|format(record["amount"]) }}
+
+                    </td>
+
+
+                    <td>
+
+                        {{ record["bank_name"] }}
+
+                    </td>
+
+
+                    <td>
+
+                        <span class="reason-badge">
+
+                            {{ record["return_reason"] }}
+
+                        </span>
+
+                    </td>
+
+
+                    <td>
+
+                        {{ record["return_date"] }}
+
+                    </td>
+
+
+                    <td>
+
+                        <span class="charge">
+
+                            ₹{{ "%.2f"|format(record["bounce_charge"]) }}
+
+                        </span>
+
+                    </td>
+
+
+                    <!-- EMAIL -->
+
+                    <td class="contact-cell">
+
+                        {% if record["customer_email"] %}
+
+                            <div class="contact-item email">
+
+                                ✉
+
+                                {{ record["customer_email"] }}
+
+                            </div>
+
+                        {% else %}
+
+                            <span class="contact-empty">
+
+                                Not provided
+
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <!-- WHATSAPP -->
+
+                    <td class="contact-cell">
+
+                        {% if record["customer_mobile"] %}
+
+                            <div class="contact-item whatsapp">
+
+                                ◉
+
+                                {{ record["customer_mobile"] }}
+
+                            </div>
+
+                        {% else %}
+
+                            <span class="contact-empty">
+
+                                Not provided
+
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <!-- DELETE -->
+
+                    <td>
+
+                        <form
+                            method="POST"
+                            action="{{ url_for(
+                                'delete_record',
+                                record_id=record['id']
+                            ) }}"
+                            onsubmit="
+                                return confirm(
+                                    'Delete this record?'
+                                );
+                            ">
+
+                            <button
+                                type="submit"
+                                class="delete-btn">
+
+                                Delete
+
+                            </button>
+
+                        </form>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        {% else %}
+
+        <div class="empty-records">
+
+            No NACH records found.
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+
+</main>
+
+
+</body>
+
+</html>

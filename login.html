@@ -1,0 +1,1672 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NACH Return Tracker - Login</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+
+            min-height: 100vh;
+
+            font-family:
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            background:
+
+                linear-gradient(
+                    115deg,
+                    rgba(42, 20, 58, 0.94),
+                    rgba(86, 50, 118, 0.82),
+                    rgba(250, 247, 239, 0.72)
+                ),
+
+                url("https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2200&q=90")
+
+                center center / cover fixed no-repeat;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 25px;
+
+        }
+
+
+        /* =========================================
+           MAIN LOGIN CONTAINER
+        ========================================= */
+
+        .login-container {
+
+            width: 1180px;
+
+            min-height: 690px;
+
+            display: flex;
+
+            overflow: hidden;
+
+            border-radius: 24px;
+
+            background:
+                rgba(255, 255, 255, 0.94);
+
+            box-shadow:
+
+                0 30px 80px
+                rgba(27, 12, 38, 0.45),
+
+                0 8px 25px
+                rgba(0, 0, 0, 0.20);
+
+            border: 1px solid
+                rgba(212, 175, 55, 0.55);
+
+        }
+
+
+        /* =========================================
+           LEFT BANKING BRANDING
+        ========================================= */
+
+        .login-left {
+
+            width: 44%;
+
+            min-height: 690px;
+
+            padding: 55px 45px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            color: white;
+
+            position: relative;
+
+            overflow: hidden;
+
+            background:
+
+                linear-gradient(
+                    145deg,
+                    #24132f,
+                    #47265e,
+                    #6c4384
+                );
+
+            border-right:
+
+                2px solid
+                rgba(212, 175, 55, 0.70);
+
+        }
+
+
+        .login-left::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 420px;
+            height: 420px;
+
+            border-radius: 50%;
+
+            border:
+
+                1px solid
+                rgba(212, 175, 55, 0.15);
+
+            top: -190px;
+            left: -180px;
+
+        }
+
+
+        .login-left::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 350px;
+            height: 350px;
+
+            border-radius: 50%;
+
+            border:
+
+                1px solid
+                rgba(255, 255, 255, 0.08);
+
+            bottom: -170px;
+            right: -150px;
+
+        }
+
+
+        .left-content {
+
+            position: relative;
+
+            z-index: 2;
+
+            width: 100%;
+
+            max-width: 430px;
+
+        }
+
+
+        /* =========================================
+           BANK LOGO
+        ========================================= */
+
+        .premium-bank-logo {
+
+            width: 118px;
+
+            height: 118px;
+
+            margin: 0 auto 18px;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            position: relative;
+
+            background:
+
+                linear-gradient(
+                    145deg,
+                    #fffdf5,
+                    #f1e4b5
+                );
+
+            border:
+
+                3px solid
+                #d4af37;
+
+            box-shadow:
+
+                0 0 0 7px
+                rgba(212, 175, 55, 0.10),
+
+                0 12px 30px
+                rgba(0, 0, 0, 0.28);
+
+        }
+
+
+        .premium-bank-logo::before {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 7px;
+
+            border-radius: 50%;
+
+            border:
+
+                1px solid
+                rgba(100, 65, 20, 0.35);
+
+        }
+
+
+        .bank-building {
+
+            width: 68px;
+
+            height: 68px;
+
+        }
+
+
+        /* =========================================
+           SMALL CREST
+        ========================================= */
+
+        .premium-crest {
+
+            position: absolute;
+
+            right: 2px;
+
+            bottom: 4px;
+
+            width: 31px;
+
+            height: 35px;
+
+            background:
+
+                linear-gradient(
+                    145deg,
+                    #e4c45d,
+                    #b58b20
+                );
+
+            clip-path:
+
+                polygon(
+                    50% 0%,
+                    94% 16%,
+                    88% 68%,
+                    50% 100%,
+                    12% 68%,
+                    6% 16%
+                );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color: #3c2250;
+
+            font-size: 14px;
+
+            font-weight: 900;
+
+        }
+
+
+        /* =========================================
+           ARCHITECTURAL LINE
+        ========================================= */
+
+        .architecture-line {
+
+            width: 260px;
+
+            height: 1px;
+
+            margin: 8px auto 18px;
+
+            position: relative;
+
+            background:
+
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    #d4af37,
+                    transparent
+                );
+
+        }
+
+
+        .architecture-line span {
+
+            position: absolute;
+
+            width: 8px;
+            height: 8px;
+
+            border-radius: 50%;
+
+            background: #d4af37;
+
+            top: -3px;
+
+            left: 50%;
+
+            transform:
+                translateX(-50%);
+
+            box-shadow:
+
+                0 0 12px
+                rgba(212, 175, 55, 0.75);
+
+        }
+
+
+        /* =========================================
+           WEBSITE NAME
+        ========================================= */
+
+        .premium-website-name {
+
+            font-size: 32px;
+
+            font-weight: 800;
+
+            letter-spacing: 3px;
+
+            line-height: 1.2;
+
+            color: #ffffff;
+
+            text-transform: uppercase;
+
+            text-shadow:
+
+                0 3px 15px
+                rgba(0, 0, 0, 0.25);
+
+        }
+
+
+        .premium-website-subtitle {
+
+            margin-top: 9px;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            letter-spacing: 5px;
+
+            color: #e2c65c;
+
+            text-transform: uppercase;
+
+        }
+
+
+        /* =========================================
+           DESCRIPTION
+        ========================================= */
+
+        .premium-description {
+
+            margin:
+
+                22px auto 25px;
+
+            max-width: 390px;
+
+            font-size: 13px;
+
+            line-height: 1.8;
+
+            color:
+
+                rgba(255,255,255,0.82);
+
+        }
+
+
+        /* =========================================
+           FEATURES
+        ========================================= */
+
+        .premium-features {
+
+            width: 100%;
+
+            padding:
+
+                15px 0;
+
+            margin-top: 5px;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            border-top:
+
+                1px solid
+                rgba(212, 175, 55, 0.45);
+
+            border-bottom:
+
+                1px solid
+                rgba(212, 175, 55, 0.45);
+
+        }
+
+
+        .feature {
+
+            flex: 1;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 9px;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            color: #ffffff;
+
+        }
+
+
+        .feature-icon {
+
+            width: 29px;
+
+            height: 29px;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+
+                rgba(212, 175, 55, 0.12);
+
+            border:
+
+                1px solid
+                rgba(212, 175, 55, 0.55);
+
+            color: #e4c45d;
+
+            font-size: 14px;
+
+        }
+
+
+        .feature-separator {
+
+            width: 1px;
+
+            height: 34px;
+
+            background:
+
+                rgba(212, 175, 55, 0.55);
+
+        }
+
+
+        /* =========================================
+           AUTHORIZED PORTAL
+        ========================================= */
+
+        .premium-access {
+
+            margin-top: 25px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 9px;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            letter-spacing: 3px;
+
+            color: #e4c45d;
+
+            text-transform: uppercase;
+
+        }
+
+
+        .access-dot {
+
+            width: 7px;
+
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: #e4c45d;
+
+            box-shadow:
+
+                0 0 10px
+                rgba(228,196,93,0.9);
+
+        }
+
+
+        /* =========================================
+           RIGHT LOGIN AREA
+        ========================================= */
+
+        .login-right {
+
+            width: 56%;
+
+            min-height: 690px;
+
+            padding: 50px 65px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+
+                linear-gradient(
+                    145deg,
+                    #fffdf8,
+                    #f7f1e7
+                );
+
+        }
+
+
+        .login-card {
+
+            width: 100%;
+
+            max-width: 475px;
+
+        }
+
+
+        /* =========================================
+           LOGIN HEADER
+        ========================================= */
+
+        .login-header {
+
+            margin-bottom: 32px;
+
+        }
+
+
+        .login-mini-label {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 2px;
+
+            color: #806122;
+
+            text-transform: uppercase;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .mini-line {
+
+            width: 28px;
+
+            height: 2px;
+
+            background: #d4af37;
+
+        }
+
+
+        .login-header h1 {
+
+            font-size: 35px;
+
+            color: #382047;
+
+            font-weight: 800;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .login-header p {
+
+            font-size: 14px;
+
+            color: #756d78;
+
+            line-height: 1.6;
+
+        }
+
+
+        /* =========================================
+           FORM
+        ========================================= */
+
+        .login-form {
+
+            width: 100%;
+
+        }
+
+
+        .form-group {
+
+            margin-bottom: 22px;
+
+        }
+
+
+        .form-label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            color: #493b50;
+
+            letter-spacing: 0.5px;
+
+        }
+
+
+        .input-wrapper {
+
+            position: relative;
+
+        }
+
+
+        .input-icon {
+
+            position: absolute;
+
+            left: 17px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            font-size: 17px;
+
+            color: #866c2e;
+
+            z-index: 2;
+
+        }
+
+
+        .input-field {
+
+            width: 100%;
+
+            height: 56px;
+
+            padding:
+
+                0 50px;
+
+            border-radius: 12px;
+
+            border:
+
+                1px solid
+                #d8cdbd;
+
+            outline: none;
+
+            font-size: 14px;
+
+            color: #35283b;
+
+            background: #fffefa;
+
+            transition: 0.25s;
+
+        }
+
+
+        .input-field::placeholder {
+
+            color: #aaa1a9;
+
+        }
+
+
+        .input-field:focus {
+
+            border-color: #b49335;
+
+            box-shadow:
+
+                0 0 0 4px
+                rgba(212,175,55,0.10);
+
+            background: white;
+
+        }
+
+
+        /* =========================================
+           PASSWORD EYE
+        ========================================= */
+
+        .password-toggle {
+
+            position: absolute;
+
+            right: 16px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            border: none;
+
+            background: transparent;
+
+            cursor: pointer;
+
+            font-size: 17px;
+
+            color: #806122;
+
+        }
+
+
+        /* =========================================
+           OPTIONS
+        ========================================= */
+
+        .login-options {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin:
+
+                -5px 0 24px;
+
+        }
+
+
+        .remember {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            font-size: 12px;
+
+            color: #716875;
+
+            cursor: pointer;
+
+        }
+
+
+        .remember input {
+
+            accent-color: #6b3d80;
+
+            width: 15px;
+
+            height: 15px;
+
+        }
+
+
+        .forgot-link {
+
+            border: none;
+
+            background: transparent;
+
+            color: #684078;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+        }
+
+
+        .forgot-link:hover {
+
+            color: #a17a19;
+
+        }
+
+
+        /* =========================================
+           SIGN IN BUTTON
+        ========================================= */
+
+        .login-button {
+
+            width: 100%;
+
+            height: 57px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            cursor: pointer;
+
+            color: white;
+
+            font-size: 14px;
+
+            font-weight: 800;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+
+            background:
+
+                linear-gradient(
+                    100deg,
+                    #47265e,
+                    #70438a,
+                    #47265e
+                );
+
+            box-shadow:
+
+                0 10px 25px
+                rgba(72,38,94,0.28);
+
+            transition: 0.25s;
+
+        }
+
+
+        .login-button:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+
+                0 14px 30px
+                rgba(72,38,94,0.35);
+
+        }
+
+
+        /* =========================================
+           RESET PASSWORD
+        ========================================= */
+
+        .reset-area {
+
+            text-align: center;
+
+            margin-top: 22px;
+
+        }
+
+
+        .reset-button {
+
+            border: none;
+
+            background: transparent;
+
+            color: #806122;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            letter-spacing: 0.5px;
+
+        }
+
+
+        .reset-button:hover {
+
+            color: #48255f;
+
+        }
+
+
+        /* =========================================
+           SECURITY NOTICE
+        ========================================= */
+
+        .security-notice {
+
+            margin-top: 30px;
+
+            padding-top: 18px;
+
+            border-top:
+
+                1px solid
+                #e0d7cb;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 9px;
+
+            font-size: 10px;
+
+            color: #8b828b;
+
+            letter-spacing: 0.5px;
+
+        }
+
+
+        .security-icon {
+
+            font-size: 15px;
+
+            color: #866c2e;
+
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 1000px) {
+
+            .login-container {
+
+                width: 94%;
+
+            }
+
+            .login-left {
+
+                width: 45%;
+
+                padding:
+                    40px 30px;
+
+            }
+
+            .login-right {
+
+                width: 55%;
+
+                padding:
+                    40px;
+
+            }
+
+            .premium-website-name {
+
+                font-size: 27px;
+
+            }
+
+        }
+
+
+        @media (max-width: 760px) {
+
+            body {
+
+                padding: 15px;
+
+            }
+
+            .login-container {
+
+                flex-direction: column;
+
+                min-height: auto;
+
+            }
+
+            .login-left {
+
+                width: 100%;
+
+                min-height: 500px;
+
+                padding:
+                    45px 25px;
+
+            }
+
+            .login-right {
+
+                width: 100%;
+
+                min-height: auto;
+
+                padding:
+                    45px 30px;
+
+            }
+
+            .premium-website-name {
+
+                font-size: 28px;
+
+            }
+
+        }
+
+
+        @media (max-width: 430px) {
+
+            .login-left {
+
+                min-height: 450px;
+
+                padding:
+                    35px 20px;
+
+            }
+
+            .premium-bank-logo {
+
+                width: 100px;
+
+                height: 100px;
+
+            }
+
+            .premium-website-name {
+
+                font-size: 23px;
+
+                letter-spacing: 2px;
+
+            }
+
+            .premium-website-subtitle {
+
+                font-size: 9px;
+
+                letter-spacing: 3px;
+
+            }
+
+            .premium-description {
+
+                font-size: 12px;
+
+            }
+
+            .login-right {
+
+                padding:
+                    35px 20px;
+
+            }
+
+            .login-header h1 {
+
+                font-size: 29px;
+
+            }
+
+            .login-options {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 12px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="login-container">
+
+
+        <!-- =================================================
+             LEFT SIDE
+        ================================================== -->
+
+        <section class="login-left">
+
+            <div class="left-content">
+
+
+                <!-- BANK LOGO -->
+
+                <div class="premium-bank-logo">
+
+                    <svg
+                        class="bank-building"
+                        viewBox="0 0 100 100"
+                        xmlns="http://www.w3.org/2000/svg">
+
+                        <!-- Roof -->
+
+                        <polygon
+                            points="10,30 50,8 90,30"
+                            fill="#4b3157"/>
+
+                        <!-- Building -->
+
+                        <rect
+                            x="16"
+                            y="31"
+                            width="68"
+                            height="48"
+                            rx="2"
+                            fill="#5d3b6d"/>
+
+                        <!-- Pillars -->
+
+                        <rect
+                            x="23"
+                            y="37"
+                            width="8"
+                            height="35"
+                            fill="#f5e8bb"/>
+
+                        <rect
+                            x="39"
+                            y="37"
+                            width="8"
+                            height="35"
+                            fill="#f5e8bb"/>
+
+                        <rect
+                            x="55"
+                            y="37"
+                            width="8"
+                            height="35"
+                            fill="#f5e8bb"/>
+
+                        <rect
+                            x="71"
+                            y="37"
+                            width="8"
+                            height="35"
+                            fill="#f5e8bb"/>
+
+                        <!-- Base -->
+
+                        <rect
+                            x="10"
+                            y="78"
+                            width="80"
+                            height="7"
+                            rx="2"
+                            fill="#3d2849"/>
+
+                        <!-- Gold entrance -->
+
+                        <rect
+                            x="43"
+                            y="54"
+                            width="14"
+                            height="25"
+                            fill="#d4af37"/>
+
+                    </svg>
+
+
+                    <div class="premium-crest">
+
+                        ✓
+
+                    </div>
+
+                </div>
+
+
+                <!-- LINE -->
+
+                <div class="architecture-line">
+
+                    <span></span>
+
+                </div>
+
+
+                <!-- WEBSITE NAME -->
+
+                <div class="premium-website-name">
+
+                    NACH RETURN
+
+                </div>
+
+                <div class="premium-website-name">
+
+                    TRACKER
+
+                </div>
+
+
+                <div class="premium-website-subtitle">
+
+                    BANKING OPERATIONS
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <p class="premium-description">
+
+                    A secure banking operations platform
+                    designed to manage NACH returns,
+                    bounce charges, customer notices
+                    and operational records efficiently.
+
+                </p>
+
+
+                <!-- FEATURES -->
+
+                <div class="premium-features">
+
+
+                    <div class="feature">
+
+                        <div class="feature-icon">
+
+                            ⚙
+
+                        </div>
+
+                        <span>
+
+                            Operations
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="feature-separator"></div>
+
+
+                    <div class="feature">
+
+                        <div class="feature-icon">
+
+                            🔒
+
+                        </div>
+
+                        <span>
+
+                            Security
+
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- AUTHORIZED -->
+
+                <div class="premium-access">
+
+                    <span class="access-dot"></span>
+
+                    Authorized Banking Portal
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             RIGHT SIDE
+        ================================================== -->
+
+        <section class="login-right">
+
+
+            <div class="login-card">
+
+
+                <!-- HEADER -->
+
+                <div class="login-header">
+
+                    <div class="login-mini-label">
+
+                        <span class="mini-line"></span>
+
+                        Secure Access
+
+                    </div>
+
+
+                    <h1>
+
+                        Welcome Back
+
+                    </h1>
+
+
+                    <p>
+
+                        Sign in to continue to the
+                        NACH Return Tracker dashboard.
+
+                    </p>
+
+                </div>
+
+
+
+                <!-- LOGIN FORM -->
+
+                <form
+                    class="login-form"
+                    action="{{ url_for('login') }}"
+                    method="POST">
+
+
+                    <!-- USERNAME -->
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label">
+
+                            Username
+
+                        </label>
+
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+
+                                👤
+
+                            </span>
+
+
+                            <input
+                                type="text"
+                                name="username"
+                                class="input-field"
+                                placeholder="Enter your username"
+                                required>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label">
+
+                            Password
+
+                        </label>
+
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+
+                                🔐
+
+                            </span>
+
+
+                            <input
+                                type="password"
+                                name="password"
+                                id="password"
+                                class="input-field"
+                                placeholder="Enter your password"
+                                required>
+
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                onclick="togglePassword()"
+                                id="eyeButton">
+
+                                👁
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- OPTIONS -->
+
+                    <div class="login-options">
+
+
+                        <label class="remember">
+
+                            <input
+                                type="checkbox">
+
+                            Remember me
+
+                        </label>
+
+
+                        <button
+                            type="button"
+                            class="forgot-link"
+                            onclick="forgotPassword()">
+
+                            Forgot Password?
+
+                        </button>
+
+
+                    </div>
+
+
+
+                    <!-- LOGIN -->
+
+                    <button
+                        type="submit"
+                        class="login-button">
+
+                        Sign In
+
+                    </button>
+
+
+                </form>
+
+
+
+                <!-- RESET -->
+
+                <div class="reset-area">
+
+                    <button
+                        type="button"
+                        class="reset-button"
+                        onclick="resetPassword()">
+
+                        Reset Password
+
+                    </button>
+
+                </div>
+
+
+
+                <!-- SECURITY -->
+
+                <div class="security-notice">
+
+                    <span class="security-icon">
+
+                        🛡
+
+                    </span>
+
+                    Authorized users only •
+                    Secure banking operations portal
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         JAVASCRIPT
+    ================================================== -->
+
+    <script>
+
+
+        /* PASSWORD SHOW / HIDE */
+
+        function togglePassword() {
+
+            const password =
+                document.getElementById("password");
+
+            const eyeButton =
+                document.getElementById("eyeButton");
+
+
+            if (password.type === "password") {
+
+                password.type = "text";
+
+                eyeButton.innerHTML = "🙈";
+
+            }
+
+            else {
+
+                password.type = "password";
+
+                eyeButton.innerHTML = "👁";
+
+            }
+
+        }
+
+
+
+        /* FORGOT PASSWORD */
+
+        function forgotPassword() {
+
+            alert(
+                "Please contact the system administrator to reset your password."
+            );
+
+        }
+
+
+
+        /* RESET PASSWORD */
+
+        function resetPassword() {
+
+            alert(
+                "Password reset is available through the system administrator."
+            );
+
+        }
+
+
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Customer Notices</title>
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}">
+
+<style>
+
+.notice-page {
+    width: min(1050px, calc(100% - 36px));
+    margin: 28px auto 45px;
+}
+
+.notice-heading {
+    background: linear-gradient(
+        135deg,
+        #fffaf0,
+        #f8f1fb
+    );
+
+    border: 1px solid #dfd1e4;
+    border-radius: 15px;
+
+    padding: 20px 23px;
+
+    margin-bottom: 18px;
+
+    box-shadow:
+        0 8px 22px
+        rgba(55,35,65,.07);
+}
+
+.notice-heading h1 {
+    margin: 0;
+
+    color: #4f2860;
+
+    font-size: 24px;
+}
+
+.notice-heading p {
+    margin: 6px 0 0;
+
+    color: #847586;
+
+    font-size: 11px;
+}
+
+
+/* =====================================================
+   NOTICE LIST
+   ===================================================== */
+
+.notice-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+
+/* =====================================================
+   NOTICE CARD
+   ===================================================== */
+
+.notice-card {
+    background: white;
+
+    border: 1px solid #ded3e2;
+
+    border-radius: 14px;
+
+    padding: 15px 17px;
+
+    box-shadow:
+        0 7px 18px
+        rgba(55,35,65,.07);
+
+    transition: .2s;
+}
+
+.notice-card:hover {
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 10px 23px
+        rgba(55,35,65,.10);
+}
+
+
+/* =====================================================
+   TOP
+   ===================================================== */
+
+.notice-top {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 18px;
+}
+
+
+/* =====================================================
+   CUSTOMER
+   ===================================================== */
+
+.customer-info {
+
+    min-width: 0;
+}
+
+.customer-info h3 {
+
+    margin: 0 0 6px;
+
+    color: #4f2860;
+
+    font-size: 15px;
+}
+
+.customer-info p {
+
+    margin: 3px 0;
+
+    color: #786b7d;
+
+    font-size: 10px;
+}
+
+
+/* =====================================================
+   CONTACT STATUS
+   ===================================================== */
+
+.contact-status {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 6px;
+
+    margin-top: 8px;
+}
+
+.status-pill {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 4px;
+
+    padding: 4px 8px;
+
+    border-radius: 20px;
+
+    font-size: 9px;
+
+    font-weight: 700;
+}
+
+.status-ok {
+
+    background: #edf8f0;
+
+    color: #39704a;
+
+    border: 1px solid #c8dfce;
+}
+
+.status-missing {
+
+    background: #fff5ed;
+
+    color: #8b5a32;
+
+    border: 1px solid #ead1ba;
+}
+
+
+/* =====================================================
+   ACTIONS
+   ===================================================== */
+
+.notice-actions {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: flex-end;
+
+    gap: 7px;
+
+    flex-shrink: 0;
+}
+
+.notice-btn {
+
+    border: 1px solid #d4c5da;
+
+    border-radius: 8px;
+
+    padding: 8px 11px;
+
+    background: white;
+
+    color: #5c3b67;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.notice-btn:hover {
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 4px 10px
+        rgba(50,30,60,.08);
+}
+
+.notice-btn.primary {
+
+    background:
+        linear-gradient(
+            135deg,
+            #5b2d70,
+            #79478d
+        );
+
+    color: white;
+
+    border-color: #5b2d70;
+}
+
+.notice-btn.email {
+
+    border-color: #bca9c5;
+
+    color: #684675;
+}
+
+.notice-btn.whatsapp {
+
+    border-color: #b8cfbe;
+
+    color: #3d6a4b;
+}
+
+
+/* =====================================================
+   MODAL
+   ===================================================== */
+
+.contact-modal {
+
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        rgba(35,20,42,.58);
+
+    z-index: 9999;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+}
+
+.contact-box {
+
+    width: min(410px, 100%);
+
+    background: white;
+
+    border-radius: 15px;
+
+    padding: 23px;
+
+    box-shadow:
+        0 25px 60px
+        rgba(0,0,0,.25);
+}
+
+.contact-box h2 {
+
+    margin: 0;
+
+    color: #4f2860;
+
+    font-size: 19px;
+}
+
+.contact-box p {
+
+    margin: 7px 0 17px;
+
+    color: #807382;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+}
+
+.contact-box label {
+
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #5b3965;
+
+    font-size: 10px;
+
+    font-weight: 800;
+}
+
+.contact-box input {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 11px;
+
+    border: 1px solid #d6c9da;
+
+    border-radius: 8px;
+
+    outline: none;
+
+    font-size: 12px;
+}
+
+.contact-box input:focus {
+
+    border-color: #7d4c91;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(93,52,112,.08);
+}
+
+.modal-actions {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 8px;
+
+    margin-top: 16px;
+}
+
+.modal-btn {
+
+    border-radius: 8px;
+
+    padding: 9px 15px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.modal-cancel {
+
+    background: white;
+
+    border: 1px solid #d3c6d8;
+
+    color: #654c6d;
+}
+
+.modal-send {
+
+    background: #5d3470;
+
+    border: 0;
+
+    color: white;
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media(max-width:750px) {
+
+    .notice-top {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .notice-actions {
+
+        justify-content: flex-start;
+
+        width: 100%;
+    }
+
+    .notice-btn {
+
+        flex: 1;
+
+        text-align: center;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+     ===================================================== -->
+
+<header class="premium-header">
+
+    <div class="brand-section">
+
+        <div class="brand-logo">
+
+            <svg viewBox="0 0 64 64"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2.5">
+
+                <path d="M7 24L32 9L57 24"/>
+                <path d="M10 26H54"/>
+                <path d="M15 28V47"/>
+                <path d="M25 28V47"/>
+                <path d="M39 28V47"/>
+                <path d="M49 28V47"/>
+                <path d="M8 49H56"/>
+                <path d="M5 54H59"/>
+
+            </svg>
+
+        </div>
+
+        <div class="brand-text">
+
+            <h1>NACH Return Tracker</h1>
+
+            <span>Banking Operations</span>
+
+        </div>
+
+    </div>
+
+
+    <nav class="premium-nav">
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('add_return') }}">
+            Add Return
+        </a>
+
+        <a href="{{ url_for('records') }}">
+            Records
+        </a>
+
+        <a href="{{ url_for('reports') }}">
+            Reports
+        </a>
+
+        <a class="active"
+           href="{{ url_for('customer_notices') }}">
+            Notices
+        </a>
+
+        <a href="{{ url_for('logout') }}">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- =====================================================
+     CONTENT
+     ===================================================== -->
+
+<main class="notice-page">
+
+
+    <section class="notice-heading">
+
+        <h1>
+            Customer Notices
+        </h1>
+
+        <p>
+            Generate a notice and send it directly to the
+            customer's saved Email or WhatsApp number.
+        </p>
+
+    </section>
+
+
+    {% with messages = get_flashed_messages() %}
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+            <div style="
+                background:#fff5e8;
+                border:1px solid #e4c99f;
+                color:#77572a;
+                padding:11px 14px;
+                border-radius:9px;
+                margin-bottom:12px;
+                font-size:11px;
+                font-weight:700;
+            ">
+
+                ⚠ {{ message }}
+
+            </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <div class="notice-list">
+
+
+        {% for record in records %}
+
+
+        <div class="notice-card">
+
+
+            <div class="notice-top">
+
+
+                <div class="customer-info">
+
+                    <h3>
+                        {{ record["customer_name"] }}
+                    </h3>
+
+                    <p>
+                        Account:
+                        {{ record["account_number"] }}
+                    </p>
+
+                    <p>
+                        Mandate:
+                        {{ record["mandate_number"] }}
+                    </p>
+
+                    <p>
+                        Return:
+                        {{ record["return_reason"] }}
+                        • ₹{{ "%.2f"|format(record["bounce_charge"]) }}
+                    </p>
+
+
+                    <!-- CONTACT STATUS -->
+
+                    <div class="contact-status">
+
+
+                        {% if record["customer_email"] %}
+
+                        <span class="status-pill status-ok">
+                            ✓ Email saved
+                        </span>
+
+                        {% else %}
+
+                        <span class="status-pill status-missing">
+                            ! Email missing
+                        </span>
+
+                        {% endif %}
+
+
+                        {% if record["customer_mobile"] %}
+
+                        <span class="status-pill status-ok">
+                            ✓ WhatsApp number saved
+                        </span>
+
+                        {% else %}
+
+                        <span class="status-pill status-missing">
+                            ! WhatsApp number missing
+                        </span>
+
+                        {% endif %}
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- ACTIONS -->
+
+                <div class="notice-actions">
+
+
+                    <a
+                        class="notice-btn primary"
+                        href="{{ url_for(
+                            'generate_notice',
+                            record_id=record['id']
+                        ) }}"
+                    >
+                        ✉ Generate Notice
+                    </a>
+
+
+                    <!-- EMAIL -->
+
+                    {% if record["customer_email"] %}
+
+                    <a
+                        class="notice-btn email"
+                        href="{{ url_for(
+                            'email_notice',
+                            record_id=record['id']
+                        ) }}"
+                    >
+                        ✉ Email
+                    </a>
+
+                    {% else %}
+
+                    <button
+                        type="button"
+                        class="notice-btn email"
+                        onclick="openContact(
+                            'email',
+                            '{{ record['id'] }}',
+                            '{{ record['customer_name']|e }}'
+                        )"
+                    >
+                        ✉ Enter Email
+                    </button>
+
+                    {% endif %}
+
+
+                    <!-- WHATSAPP -->
+
+                    {% if record["customer_mobile"] %}
+
+                    <a
+                        class="notice-btn whatsapp"
+                        href="{{ url_for(
+                            'whatsapp_notice',
+                            record_id=record['id']
+                        ) }}"
+                    >
+                        WhatsApp
+                    </a>
+
+                    {% else %}
+
+                    <button
+                        type="button"
+                        class="notice-btn whatsapp"
+                        onclick="openContact(
+                            'whatsapp',
+                            '{{ record['id'] }}',
+                            '{{ record['customer_name']|e }}'
+                        )"
+                    >
+                        Enter WhatsApp
+                    </button>
+
+                    {% endif %}
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+        {% else %}
+
+
+        <div class="notice-card"
+             style="text-align:center;padding:35px;">
+
+            <div style="
+                font-size:32px;
+                margin-bottom:8px;
+            ">
+                ✉
+            </div>
+
+            <h3 style="
+                margin:0;
+                color:#4f2860;
+            ">
+                No Notices Available
+            </h3>
+
+            <p style="
+                color:#827484;
+                font-size:11px;
+            ">
+                Add a NACH return transaction first.
+            </p>
+
+        </div>
+
+
+        {% endfor %}
+
+
+    </div>
+
+
+</main>
+
+
+<!-- =====================================================
+     CONTACT MODAL
+     ===================================================== -->
+
+<div
+    id="contactModal"
+    class="contact-modal"
+>
+
+
+    <div class="contact-box">
+
+
+        <h2 id="contactTitle">
+            Customer Contact
+        </h2>
+
+
+        <p id="contactDescription">
+            Enter the missing customer contact detail.
+        </p>
+
+
+        <form
+            id="contactForm"
+            method="GET"
+        >
+
+
+            <label id="contactLabel">
+                Contact
+            </label>
+
+
+            <input
+                id="contactInput"
+                name="contact"
+                type="text"
+                required
+                autocomplete="off"
+            >
+
+
+            <div class="modal-actions">
+
+
+                <button
+                    type="button"
+                    class="modal-btn modal-cancel"
+                    onclick="closeContact()"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="modal-btn modal-send"
+                >
+                    Send Notice
+                </button>
+
+
+            </div>
+
+
+        </form>
+
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+
+let contactType = "";
+
+
+/* =====================================================
+   OPEN CONTACT
+   ===================================================== */
+
+function openContact(
+    type,
+    recordId,
+    customerName
+) {
+
+    contactType = type;
+
+
+    const modal =
+        document.getElementById(
+            "contactModal"
+        );
+
+
+    const title =
+        document.getElementById(
+            "contactTitle"
+        );
+
+
+    const description =
+        document.getElementById(
+            "contactDescription"
+        );
+
+
+    const label =
+        document.getElementById(
+            "contactLabel"
+        );
+
+
+    const input =
+        document.getElementById(
+            "contactInput"
+        );
+
+
+    const form =
+        document.getElementById(
+            "contactForm"
+        );
+
+
+    input.value = "";
+
+
+    if (type === "email") {
+
+        title.textContent =
+            "Enter Customer Email";
+
+        description.textContent =
+            "No email was saved for "
+            + customerName
+            + ". Enter one now to send the notice.";
+
+        label.textContent =
+            "Customer Email";
+
+        input.type =
+            "email";
+
+        input.placeholder =
+            "customer@example.com";
+
+        form.action =
+            "/email-notice/"
+            + recordId;
+
+    }
+
+
+    else {
+
+        title.textContent =
+            "Enter WhatsApp Number";
+
+        description.textContent =
+            "No mobile number was saved for "
+            + customerName
+            + ". Enter one now to send the notice.";
+
+        label.textContent =
+            "WhatsApp Mobile Number";
+
+        input.type =
+            "tel";
+
+        input.placeholder =
+            "9876543210";
+
+        form.action =
+            "/whatsapp-notice/"
+            + recordId;
+
+    }
+
+
+    modal.style.display =
+        "flex";
+
+
+    setTimeout(
+        function() {
+
+            input.focus();
+
+        },
+        100
+    );
+
+}
+
+
+/* =====================================================
+   CLOSE CONTACT
+   ===================================================== */
+
+function closeContact() {
+
+    document.getElementById(
+        "contactModal"
+    ).style.display =
+        "none";
+
+}
+
+
+/* =====================================================
+   CLICK OUTSIDE
+   ===================================================== */
+
+window.onclick = function(event) {
+
+    const modal =
+        document.getElementById(
+            "contactModal"
+        );
+
+    if (
+        event.target === modal
+    ) {
+
+        closeContact();
+
+    }
+
+};
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<header class="premium-header">
+
+    <div class="brand-section">
+
+        <div class="brand-logo">
+
+            <svg viewBox="0 0 64 64"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2.5">
+
+                <path d="M7 24L32 9L57 24"/>
+                <path d="M10 26H54"/>
+                <path d="M15 28V47"/>
+                <path d="M25 28V47"/>
+                <path d="M39 28V47"/>
+                <path d="M49 28V47"/>
+                <path d="M8 49H56"/>
+                <path d="M5 54H59"/>
+
+            </svg>
+
+        </div>
+
+        <div class="brand-text">
+
+            <h1>NACH Return Tracker</h1>
+
+            <span>Banking Operations</span>
+
+        </div>
+
+    </div>
+
+
+    <nav class="premium-nav">
+
+        <a href="{{ url_for('dashboard') }}"
+           class="active">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('add_return') }}">
+            Add Return
+        </a>
+
+        <a href="{{ url_for('records') }}">
+            Records
+        </a>
+
+        <a href="{{ url_for('reports') }}">
+            Reports
+        </a>
+
+        <a href="{{ url_for('customer_notices') }}">
+            Notices
+        </a>
+
+        <a href="{{ url_for('logout') }}">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="page-container">
+
+    <div class="page-card dashboard-page">
+
+        <div class="page-heading-area">
+
+            <span class="section-kicker">
+                ✦ Banking Operations
+            </span>
+
+            <h1 class="page-title">
+                Dashboard
+            </h1>
+
+            <p class="page-subtitle">
+                Monitor NACH return transactions,
+                amounts and bounce charges.
+            </p>
+
+        </div>
+
+
+        <!-- ==================================================
+             STATISTICS
+             ================================================== -->
+
+        <div class="dashboard-grid">
+
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+                        ↻
+                    </div>
+
+                    <span class="stat-mini-label">
+                        TRANSACTIONS
+                    </span>
+
+                </div>
+
+                <div class="stat-label">
+                    Total Returns
+                </div>
+
+                <div class="stat-value">
+                    {{ total_returns }}
+                </div>
+
+                <div class="stat-line"></div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+                        ₹
+                    </div>
+
+                    <span class="stat-mini-label">
+                        VALUE
+                    </span>
+
+                </div>
+
+                <div class="stat-label">
+                    Total Amount
+                </div>
+
+                <div class="stat-value">
+                    ₹{{ "%.2f"|format(total_amount) }}
+                </div>
+
+                <div class="stat-line"></div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+                        ◈
+                    </div>
+
+                    <span class="stat-mini-label">
+                        CHARGES
+                    </span>
+
+                </div>
+
+                <div class="stat-label">
+                    Bounce Charges
+                </div>
+
+                <div class="stat-value">
+                    ₹{{ "%.2f"|format(total_charges) }}
+                </div>
+
+                <div class="stat-line"></div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+                        ◷
+                    </div>
+
+                    <span class="stat-mini-label">
+                        TODAY
+                    </span>
+
+                </div>
+
+                <div class="stat-label">
+                    Today's Returns
+                </div>
+
+                <div class="stat-value">
+                    {{ today_returns }}
+                </div>
+
+                <div class="stat-line"></div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- ==================================================
+             QUICK ACTIONS
+             ================================================== -->
+
+        <section class="quick-actions">
+
+            <div class="quick-actions-heading">
+
+                <div class="quick-heading-symbol">
+                    ✦
+                </div>
+
+                <div>
+
+                    <span class="quick-section-label">
+                        OPERATIONS MENU
+                    </span>
+
+                    <h2>
+                        Quick Actions
+                    </h2>
+
+                    <p>
+                        Access frequently used banking operations
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="quick-actions-grid">
+
+
+                <!-- ADD RETURN -->
+
+                <a href="{{ url_for('add_return') }}"
+                   class="quick-action">
+
+                    <div class="quick-action-number">
+                        01
+                    </div>
+
+                    <div class="quick-action-icon">
+                        +
+                    </div>
+
+                    <div class="quick-action-content">
+
+                        <strong>
+                            Add NACH Return
+                        </strong>
+
+                        <span>
+                            Enter a new return transaction
+                        </span>
+
+                    </div>
+
+                    <div class="quick-action-arrow">
+                        →
+                    </div>
+
+                </a>
+
+
+                <!-- RECORDS -->
+
+                <a href="{{ url_for('records') }}"
+                   class="quick-action">
+
+                    <div class="quick-action-number">
+                        02
+                    </div>
+
+                    <div class="quick-action-icon">
+                        ▤
+                    </div>
+
+                    <div class="quick-action-content">
+
+                        <strong>
+                            View Records
+                        </strong>
+
+                        <span>
+                            Search and manage transactions
+                        </span>
+
+                    </div>
+
+                    <div class="quick-action-arrow">
+                        →
+                    </div>
+
+                </a>
+
+
+                <!-- REPORTS -->
+
+                <a href="{{ url_for('reports') }}"
+                   class="quick-action">
+
+                    <div class="quick-action-number">
+                        03
+                    </div>
+
+                    <div class="quick-action-icon">
+                        ◫
+                    </div>
+
+                    <div class="quick-action-content">
+
+                        <strong>
+                            Reports
+                        </strong>
+
+                        <span>
+                            View banking transaction reports
+                        </span>
+
+                    </div>
+
+                    <div class="quick-action-arrow">
+                        →
+                    </div>
+
+                </a>
+
+
+                <!-- CUSTOMER NOTICES -->
+
+                <a href="{{ url_for('customer_notices') }}"
+                   class="quick-action">
+
+                    <div class="quick-action-number">
+                        04
+                    </div>
+
+                    <div class="quick-action-icon">
+                        ✉
+                    </div>
+
+                    <div class="quick-action-content">
+
+                        <strong>
+                            Customer Notices
+                        </strong>
+
+                        <span>
+                            Generate return notifications
+                        </span>
+
+                    </div>
+
+                    <div class="quick-action-arrow">
+                        →
+                    </div>
+
+                </a>
+
+
+            </div>
+
+        </section>
+
+
+    </div>
+
+
+    <div class="premium-footer">
+
+        <strong>NACH Return Tracker</strong>
+
+        &nbsp; • &nbsp;
+
+        Banking Operations Management System
+
+    </div>
+
+</main>
+
+</body>
+
+</html>

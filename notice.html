@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>NACH Return Notice</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #eeeeee;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #302536;
+        }
+
+        /* TOP BUTTONS */
+        .notice-toolbar {
+            width: 210mm;
+            margin: 15px auto;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .toolbar-btn {
+            padding: 9px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            border: 1px solid #c49a45;
+            background: #ffffff;
+            color: #4b245f;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .print-btn {
+            background: #4b245f;
+            color: white;
+        }
+
+        /* EXACT A4 PAPER */
+        .notice-paper {
+            width: 210mm;
+            height: 297mm;
+            margin: 0 auto 25px;
+            background: white;
+
+            padding: 13mm 15mm;
+
+            border: 1px solid #d8cedb;
+
+            box-shadow:
+                0 8px 25px rgba(0,0,0,0.12);
+
+            overflow: hidden;
+        }
+
+        /* HEADER */
+
+        .notice-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            border-bottom: 2px solid #c49a45;
+
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 8px;
+
+            background: #4b245f;
+            color: #c49a45;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-size: 18px;
+            color: #3e214c;
+            letter-spacing: .5px;
+        }
+
+        .brand p {
+            margin: 2px 0 0;
+            font-size: 9px;
+            color: #777;
+            letter-spacing: .7px;
+        }
+
+        .reference {
+            text-align: right;
+            font-size: 9px;
+            line-height: 1.5;
+            color: #555;
+        }
+
+        .reference strong {
+            color: #4b245f;
+        }
+
+        /* TITLE */
+
+        .notice-title {
+            text-align: center;
+
+            color: #4b245f;
+
+            font-size: 17px;
+            font-weight: bold;
+
+            letter-spacing: 1px;
+
+            margin: 10px 0 3px;
+        }
+
+        .notice-subtitle {
+            text-align: center;
+
+            font-size: 9px;
+            color: #777;
+
+            margin-bottom: 12px;
+        }
+
+        /* GREETING */
+
+        .greeting {
+            font-size: 11px;
+            margin-bottom: 8px;
+        }
+
+        /* BODY */
+
+        .notice-body {
+            font-size: 10px;
+            line-height: 1.55;
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+        /* DETAILS TABLE */
+
+        .details {
+            width: 100%;
+            border-collapse: collapse;
+
+            margin-bottom: 11px;
+
+            font-size: 9.5px;
+        }
+
+        .details th {
+            width: 38%;
+
+            text-align: left;
+
+            background: #f5eff7;
+
+            color: #4b245f;
+
+            border: 1px solid #ded4e1;
+
+            padding: 6px 8px;
+
+            font-weight: bold;
+        }
+
+        .details td {
+            border: 1px solid #ded4e1;
+
+            padding: 6px 8px;
+
+            color: #333;
+        }
+
+        /* IMPORTANT BOX */
+
+        .important {
+            border-left: 3px solid #c49a45;
+
+            background: #faf7fb;
+
+            padding: 8px 11px;
+
+            margin-bottom: 11px;
+        }
+
+        .important h3 {
+            margin: 0 0 5px;
+
+            font-size: 11px;
+
+            color: #4b245f;
+        }
+
+        .important ul {
+            margin: 0;
+            padding-left: 17px;
+        }
+
+        .important li {
+            font-size: 9px;
+            line-height: 1.45;
+            margin-bottom: 3px;
+        }
+
+        /* SIGNATURE */
+
+        .signature {
+            font-size: 9.5px;
+            line-height: 1.5;
+            margin-top: 10px;
+        }
+
+        /* FOOTER */
+
+        .security-strip {
+            margin-top: 12px;
+
+            padding: 7px;
+
+            text-align: center;
+
+            background: #f3edf5;
+
+            border-top: 1px solid #ddd0e1;
+
+            color: #666;
+
+            font-size: 8px;
+        }
+
+        /* PRINT */
+
+        @media print {
+
+            html,
+            body {
+                width: 210mm !important;
+                height: 297mm !important;
+
+                margin: 0 !important;
+                padding: 0 !important;
+
+                background: white !important;
+            }
+
+            .notice-toolbar {
+                display: none !important;
+            }
+
+            .notice-paper {
+                width: 210mm !important;
+                height: 297mm !important;
+
+                margin: 0 !important;
+
+                padding: 13mm 15mm !important;
+
+                border: none !important;
+
+                box-shadow: none !important;
+
+                overflow: hidden !important;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     BUTTONS
+     ========================================================= -->
+
+<div class="notice-toolbar">
+
+    <a
+        href="{{ url_for('customer_notices') }}"
+        class="toolbar-btn">
+
+        ← Back to Notices
+
+    </a>
+
+
+    <button
+        onclick="window.print()"
+        class="toolbar-btn print-btn">
+
+        🖨 Print Notice
+
+    </button>
+
+</div>
+
+
+<!-- =========================================================
+     A4 PAPER
+     ========================================================= -->
+
+<div class="notice-paper">
+
+
+    <!-- HEADER -->
+
+    <div class="notice-header">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                ₹
+            </div>
+
+            <div>
+
+                <h1>
+                    NACH RETURN TRACKER
+                </h1>
+
+                <p>
+                    BANKING OPERATIONS DEPARTMENT
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="reference">
+
+            <strong>
+                Notice Reference
+            </strong>
+
+            <br>
+
+            NACH-{{ record["id"] }}
+
+            <br>
+
+            Date:
+            {{ record["return_date"] }}
+
+        </div>
+
+    </div>
+
+
+    <!-- TITLE -->
+
+    <div class="notice-title">
+
+        NACH RETURN NOTICE
+
+    </div>
+
+
+    <div class="notice-subtitle">
+
+        Customer Transaction Return Notification
+
+    </div>
+
+
+    <!-- GREETING -->
+
+    <div class="greeting">
+
+        Dear
+        <strong>
+            {{ record["customer_name"] }}
+        </strong>,
+
+    </div>
+
+
+    <!-- BODY -->
+
+    <div class="notice-body">
+
+        This is to inform you that the NACH transaction
+        associated with your account has been returned.
+        Please review the transaction details below and
+        take the necessary action.
+
+    </div>
+
+
+    <!-- DETAILS -->
+
+    <table class="details">
+
+        <tr>
+
+            <th>
+                Customer Name
+            </th>
+
+            <td>
+                {{ record["customer_name"] }}
+            </td>
+
+        </tr>
+
+
+        <tr>
+
+            <th>
+                Account Number
+            </th>
+
+            <td>
+                {{ record["account_number"] }}
+            </td>
+
+        </tr>
+
+
+        <tr>
+
+            <th>
+                Mandate Number
+            </th>
+
+            <td>
+                {{ record["mandate_number"] }}
+            </td>
+
+        </tr>
+
+
+        <tr>
+
+            <th>
+                Bank
+            </th>
+
+            <td>
+                {{ record["bank_name"] }}
+            </td>
+
+        </tr>
+
+
+        <tr>
+
+            <th>
+                Return Amount
+            </th>
+
+            <td>
+                ₹{{ "%.2f"|format(record["amount"]) }}
+            </td>
+
+        </tr>
+
+
+        <tr>
+
+            <th>
+                Return Date
+            </th>
+
+            <td>
+                {{ record["return_date"] }}
+            </td>
+
+        </tr>
+
+
+        <tr>
+
+            <th>
+                Return Reason
+            </th>
+
+            <td>
+                {{ record["return_reason"] }}
+            </td>
+
+        </tr>
+
+
+        <tr>
+
+            <th>
+                Applicable Bounce Charge
+            </th>
+
+            <td>
+                ₹{{ "%.2f"|format(record["bounce_charge"]) }}
+            </td>
+
+        </tr>
+
+    </table>
+
+
+    <!-- IMPORTANT -->
+
+    <div class="important">
+
+        <h3>
+            Important Information
+        </h3>
+
+        <ul>
+
+            <li>
+                Please ensure sufficient funds are available
+                before any future presentation.
+            </li>
+
+            <li>
+                Applicable bounce charges may be recovered
+                according to the applicable schedule.
+            </li>
+
+            <li>
+                If you believe this return is incorrect,
+                contact the concerned banking operations team.
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <!-- SIGNATURE -->
+
+    <div class="signature">
+
+        We request you to take the necessary action
+        regarding the returned transaction.
+
+        <br><br>
+
+        Regards,
+
+        <br>
+
+        <strong>
+            Banking Operations Department
+        </strong>
+
+        <br>
+
+        NACH Return Tracker
+
+    </div>
+
+
+    <!-- FOOTER -->
+
+    <div class="security-strip">
+
+        This is a system-generated NACH return notice.
+        Please retain this document for your records.
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

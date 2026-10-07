@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>NACH Reports</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<header class="premium-header">
+
+    <div class="brand-section">
+
+        <div class="brand-logo">
+
+            <svg viewBox="0 0 64 64"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2.5">
+
+                <path d="M7 24L32 9L57 24"/>
+                <path d="M10 26H54"/>
+                <path d="M15 28V47"/>
+                <path d="M25 28V47"/>
+                <path d="M39 28V47"/>
+                <path d="M49 28V47"/>
+                <path d="M8 49H56"/>
+                <path d="M5 54H59"/>
+
+            </svg>
+
+        </div>
+
+        <div class="brand-text">
+
+            <h1>NACH Return Tracker</h1>
+
+            <span>Banking Operations</span>
+
+        </div>
+
+    </div>
+
+
+    <nav class="premium-nav">
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('add_return') }}">
+            Add Return
+        </a>
+
+        <a href="{{ url_for('records') }}">
+            Records
+        </a>
+
+        <a href="{{ url_for('reports') }}"
+           class="active">
+            Reports
+        </a>
+
+        <a href="{{ url_for('customer_notices') }}">
+            Notices
+        </a>
+
+        <a href="{{ url_for('logout') }}">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="page-container">
+
+    <div class="page-card">
+
+        <div class="page-heading-area">
+
+            <span class="section-kicker">
+                ◫ Banking Analytics
+            </span>
+
+            <h1 class="page-title">
+                NACH Reports
+            </h1>
+
+            <p class="page-subtitle">
+                Review transaction activity, bank-wise returns
+                and return-reason distribution.
+            </p>
+
+        </div>
+
+
+        <!-- ==================================================
+             SUMMARY
+             ================================================== -->
+
+        <div class="report-summary">
+
+
+            <div class="report-summary-card">
+
+                <div class="report-summary-icon">
+                    ↻
+                </div>
+
+                <div>
+
+                    <span>
+                        TOTAL RETURNS
+                    </span>
+
+                    <strong>
+                        {{ total_returns }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="report-summary-card">
+
+                <div class="report-summary-icon">
+                    ₹
+                </div>
+
+                <div>
+
+                    <span>
+                        TOTAL AMOUNT
+                    </span>
+
+                    <strong>
+                        ₹{{ "%.2f"|format(total_amount) }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="report-summary-card">
+
+                <div class="report-summary-icon">
+                    ◈
+                </div>
+
+                <div>
+
+                    <span>
+                        BOUNCE CHARGES
+                    </span>
+
+                    <strong>
+                        ₹{{ "%.2f"|format(total_charges) }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="report-summary-card">
+
+                <div class="report-summary-icon">
+                    ◷
+                </div>
+
+                <div>
+
+                    <span>
+                        TODAY
+                    </span>
+
+                    <strong>
+                        {{ today_returns }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- ==================================================
+             TWO REPORT BOXES SIDE BY SIDE
+             ================================================== -->
+
+        <div class="reports-two-column">
+
+
+            <!-- BANK WISE REPORT -->
+
+            <section class="report-section premium-report-box">
+
+                <div class="report-section-heading">
+
+                    <div class="report-heading-icon">
+                        ▥
+                    </div>
+
+                    <div>
+
+                        <span>
+                            REPORT 01
+                        </span>
+
+                        <h2>
+                            Bank Wise Report
+                        </h2>
+
+                        <p>
+                            NACH returns grouped by bank
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                {% if bank_report %}
+
+                <div class="report-table-wrapper">
+
+                    <table class="report-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Bank
+                                </th>
+
+                                <th>
+                                    Returns
+                                </th>
+
+                                <th>
+                                    Amount
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                        {% for row in bank_report %}
+
+                            <tr>
+
+                                <td>
+
+                                    <span class="report-bank-name">
+
+                                        <span class="report-bank-dot"></span>
+
+                                        {{ row["bank_name"] }}
+
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    <span class="report-count">
+                                        {{ row["return_count"] }}
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    <strong class="report-amount">
+                                        ₹{{ "%.2f"|format(row["total_amount"]) }}
+                                    </strong>
+
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+                {% else %}
+
+                    <div class="report-empty">
+                        No bank-wise data available.
+                    </div>
+
+                {% endif %}
+
+            </section>
+
+
+            <!-- RETURN REASON REPORT -->
+
+            <section class="report-section premium-report-box">
+
+                <div class="report-section-heading">
+
+                    <div class="report-heading-icon gold">
+                        ◈
+                    </div>
+
+                    <div>
+
+                        <span>
+                            REPORT 02
+                        </span>
+
+                        <h2>
+                            Return Reason Report
+                        </h2>
+
+                        <p>
+                            Returns grouped by reason
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                {% if reason_report %}
+
+                <div class="report-table-wrapper">
+
+                    <table class="report-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Return Reason
+                                </th>
+
+                                <th>
+                                    Returns
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                        {% for row in reason_report %}
+
+                            <tr>
+
+                                <td>
+
+                                    <span class="reason-report-name">
+                                        {{ row["return_reason"] }}
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    <span class="report-count gold-count">
+                                        {{ row["return_count"] }}
+                                    </span>
+
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+                {% else %}
+
+                    <div class="report-empty">
+                        No return-reason data available.
+                    </div>
+
+                {% endif %}
+
+            </section>
+
+
+        </div>
+
+    </div>
+
+
+    <div class="premium-footer">
+
+        <strong>NACH Return Tracker</strong>
+
+        &nbsp; • &nbsp;
+
+        Banking Operations Management System
+
+    </div>
+
+</main>
+
+</body>
+</html>
